@@ -1,0 +1,2 @@
+{'codigo': 212, 'nombre': 'jesxus', 'categoria': 'perro', 'cantidad': 2, 'precio': 20000.0}
+{'codigo': 121, 'nombre': 'pe', 'categoria': '2', 'cantidad': 232, 'precio': 22323.0}
