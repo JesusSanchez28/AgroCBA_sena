@@ -59,18 +59,45 @@ def registrar_producto():
 
 def consultar_producto():
     print("=============================================")
-    print("               CONSULTAR PRODUCTO            ")
+    print("               CONSULTAR PRODUCTOS           ")
     print("=============================================")
 
     if not productos:
         print("No hay productos registrados en este momento.")
         return
     for prod in productos:
+        print("=============================================")
         print(f"Codigo: {prod['codigo']}")
         print(f"Nombre: {prod['nombre']}")
         print(f"Categoria: {prod['categoria']}")
         print(f"Cantidad: {prod['cantidad']}")
         print(f"Precio: {prod['precio']}")
+        print("=============================================")
+
+def buscar_producto():
+    if not productos:
+        print("=============================================")
+        print("               BUSCAR PRODUCTOS              ")
+        print("=============================================")
+        print("Aun no hay productos registrados. ")
+        return
+    
+    Encontrado = False
+    busqueda = input("ingrese el codigo que desea buscar: ")
+    for bus in productos:
+        
+        if bus["codigo"] == busqueda:
+            print(f"Codigo: {bus['codigo']}")
+            print(f"Nombre: {bus['nombre']}")
+            print(f"Categoria: {bus['categoria']}")
+            print(f"Cantidad: {bus['cantidad']}")
+            print(f"Precio: {bus['precio']}")
+            Encontrado = True
+        if not Encontrado:
+            print("no hay productos con ese codigo")
+
+            
+
 def todo():
     control = True
     menu()
@@ -114,7 +141,7 @@ def todo():
 
             case 3:
                 print("buscar producto ha sido seleccionado..")
-
+                buscar_producto()
             case 4:
                 print("actualizar producto ha sido seleccionado..")
 

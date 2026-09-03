@@ -1,1 +1,6 @@
 {'codigo': 'jesus01', 'nombre': 'franklin23', 'categoria': '2323', 'cantidad': 2323, 'precio': 322233}
+{'codigo': '3232', 'nombre': 'jeus', 'categoria': 'sdsd', 'cantidad': 3, 'precio': 43444}
+{'codigo': '3222', 'nombre': 'kes', 'categoria': '22', 'cantidad': 33, 'precio': 232}
+{'codigo': '2322', 'nombre': 'kaorl', 'categoria': 'dsd', 'cantidad': 232, 'precio': 233}
+{'codigo': '3222', 'nombre': 'jesus', 'categoria': 'carbom', 'cantidad': 32, 'precio': 32}
+{'codigo': '3322', 'nombre': 'jesus', 'categoria': 'perro', 'cantidad': 3, 'precio': 20000}
