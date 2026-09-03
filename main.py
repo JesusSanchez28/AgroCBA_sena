@@ -1,9 +1,12 @@
+productos = []
+
 def menu():
 
     print("=====================================")
     print("          SISTEMA AGROCBA            ")
     print("=====================================")
     print("Sistema iniciado correctamente")
+
 
 def menuPp():
     print("=============================================")
@@ -16,16 +19,15 @@ def menuPp():
     print("=     5. Eliminar producto                  =")
     print("=     6. Mostrar valor total del inventario =")
     print("=     7. Salir                              =")
-    print("")
     print("=============================================")
 
 
-productos = []
+
 
 def registrar_producto():
     while True:
 
-        codigo = int(input("Escriba el codigo del producto: "))
+        codigo = input("Escriba el codigo del producto: ")
 
         repetido = False
         for producto in productos:
@@ -36,10 +38,10 @@ def registrar_producto():
             print("ya se ha registrado un producto con este codigo.")
         else:
             break
-    nombre = input("Escriba el nombre: ")
-    categoria = input("Escriba la categoria: ")
+    nombre = str(input("Escriba el nombre: "))
+    categoria = str(input("Escriba la categoria: "))
     cantidad = int(input("Escriba la cantidad: "))
-    precio = float(input("Escriba el precio: "))
+    precio = int(input("Escriba el precio: "))  
 
     nuevo_producto = {
         "codigo": codigo,
@@ -48,20 +50,34 @@ def registrar_producto():
         "cantidad": cantidad,
         "precio": precio
     }
-
     productos.append(nuevo_producto)
 
     with open("producto.txt", "a", encoding="utf-8") as orden:
         orden.write(str(nuevo_producto) + "\n")
+    return
 
 
+def consultar_producto():
+    print("=============================================")
+    print("               CONSULTAR PRODUCTO            ")
+    print("=============================================")
+
+    if not productos:
+        print("No hay productos registrados en este momento.")
+        return
+    for prod in productos:
+        print(f"Codigo: {prod['codigo']}")
+        print(f"Nombre: {prod['nombre']}")
+        print(f"Categoria: {prod['categoria']}")
+        print(f"Cantidad: {prod['cantidad']}")
+        print(f"Precio: {prod['precio']}")
 def todo():
     control = True
     menu()
     input("haz click en cualquier tecla para continuar")
     while(control):
         menuPp()
-        op = int(input("selecciona una opcion"))
+        op = int(input("selecciona una opcion: "))
         match op:
             
             case 1:
@@ -94,6 +110,7 @@ def todo():
                 
             case 2:
                 print("consultar producto ha sido seleccionado..")
+                consultar_producto()
 
             case 3:
                 print("buscar producto ha sido seleccionado..")
