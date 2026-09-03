@@ -1,4 +1,9 @@
-productos = []
+import json
+try:
+    with open("producto.json", "r", encoding="utf-8") as archivo:
+        productos = json.load(archivo)
+except FileNotFoundError:
+    productos = []
 
 def menu():
 
@@ -20,8 +25,6 @@ def menuPp():
     print("=     6. Mostrar valor total del inventario =")
     print("=     7. Salir                              =")
     print("=============================================")
-
-
 
 
 def registrar_producto():
@@ -52,8 +55,8 @@ def registrar_producto():
     }
     productos.append(nuevo_producto)
 
-    with open("producto.txt", "a", encoding="utf-8") as orden:
-        orden.write(str(nuevo_producto) + "\n")
+    with open("producto.json", "w", encoding="utf-8") as archivo:
+        json.dump(productos, archivo, ensure_ascii=False, indent=4 )
     return
 
 
@@ -73,6 +76,8 @@ def consultar_producto():
         print(f"Cantidad: {prod['cantidad']}")
         print(f"Precio: {prod['precio']}")
         print("=============================================")
+
+
 
 def buscar_producto():
     if not productos:
@@ -96,7 +101,7 @@ def buscar_producto():
         if not Encontrado:
             print("no hay productos con ese codigo")
 
-            
+
 
 def todo():
     control = True
@@ -133,8 +138,6 @@ def todo():
                         except TypeError:
                             print("debes escribir si o no")
 
-
-                
             case 2:
                 print("consultar producto ha sido seleccionado..")
                 consultar_producto()
