@@ -80,6 +80,7 @@ def consultar_producto():
 
 
 def buscar_producto():
+
     if not productos:
         print("=============================================")
         print("               BUSCAR PRODUCTOS              ")
@@ -101,6 +102,48 @@ def buscar_producto():
         if not Encontrado:
             print("no hay productos con ese codigo")
 
+
+def actualizar_producto():
+
+    Encontrado = False
+    busqueda = input("ingrese el codigo que desea buscar: ")
+    for bus in productos:
+            
+            if bus["codigo"] == busqueda:
+                bus['nombre'] = input("escriba el nuevo nombre: ")
+                bus['categoria'] = input("escriba la nueva categoria: ")
+                bus['cantidad'] = int(input("escriba la nueva cantidad: "))
+                bus['precio'] = int(input("escriba el nuevo precio: "))
+                Encontrado = True
+
+                with open("producto.json", "w", encoding="utf-8") as archivo:
+                    json.dump(productos, archivo, ensure_ascii=False, indent=4 )
+
+                print("producto actualizado correctamente")
+                break
+            if not Encontrado:
+                print("no hay productos con ese codigo")
+
+
+def eliminar_producto():
+
+    Encontrado = False
+    busqueda = input("ingrese el codigo que desea buscar para eliminar: ")
+    for bus in productos:
+                
+        if bus["codigo"] == busqueda:
+
+            productos.remove(bus)
+            Encontrado = True
+    
+            with open("producto.json", "w", encoding="utf-8") as archivo:
+                json.dump(productos, archivo, ensure_ascii=False, indent=4 )
+    
+            print("producto eliminado correctamente")
+            break
+
+        if not Encontrado:
+                        print("no hay productos con ese codigo")
 
 
 def todo():
@@ -147,9 +190,11 @@ def todo():
                 buscar_producto()
             case 4:
                 print("actualizar producto ha sido seleccionado..")
+                actualizar_producto()
 
             case 5:
                 print("eliminar producto ha sido seleccionado..")
+                eliminar_producto()
 
             case 6:
                 print("mostrar valor total del inventario ha sido seleccionado..")
