@@ -264,7 +264,7 @@ def mostrar_valor_total():
 
     for producto in productos:
         subtotal = producto["cantidad"] * producto["precio"]
-        total = total - subtotal
+        total = total + subtotal
 
     print(f"El valor total del inventario es de: ${total}")
 
