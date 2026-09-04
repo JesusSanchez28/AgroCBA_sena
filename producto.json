@@ -1,16 +1,16 @@
 [
     {
-        "codigo": "2121ll",
-        "nombre": "pan",
-        "categoria": "harina",
-        "cantidad": 5,
-        "precio": 20000
+        "codigo": "P001",
+        "nombre": "POLLO ASADO",
+        "categoria": "CARNES",
+        "cantidad": 3,
+        "precio": 30000.0
     },
     {
-        "codigo": "444",
-        "nombre": "haider",
-        "categoria": "gay",
-        "cantidad": 1,
-        "precio": 0
+        "codigo": "P00",
+        "nombre": "POLLO",
+        "categoria": "CARNES",
+        "cantidad": 0,
+        "precio": 10000.0
     }
 ]

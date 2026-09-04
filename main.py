@@ -3,7 +3,7 @@ import json
 try:
     with open("producto.json", "r", encoding="utf-8") as archivo:
         productos = json.load(archivo)
-except FileNotFoundError:
+except (FileNotFoundError, json.JSONDecodeError):
     productos = []
 
 
