@@ -1,12 +1,13 @@
 import json
+
 try:
     with open("producto.json", "r", encoding="utf-8") as archivo:
         productos = json.load(archivo)
 except FileNotFoundError:
     productos = []
 
-def menu():
 
+def menu():
     print("=====================================")
     print("          SISTEMA AGROCBA            ")
     print("=====================================")
@@ -15,7 +16,7 @@ def menu():
 
 def menuPp():
     print("=============================================")
-    print("                SISTEMA AGROCBA            ")
+    print("                SISTEMA AGROCBA              ")
     print("=============================================")
     print("=     1. Registrar producto                 =")
     print("=     2. Consultar productos                =")
@@ -28,23 +29,65 @@ def menuPp():
 
 
 def registrar_producto():
-    while True:
 
-        codigo = input("Escriba el codigo del producto: ")
+    while True:
+        codigo = input("Escriba el codigo del producto: ").strip()
+
+        if codigo == "":
+            print("El codigo no puede estar vacio.")
+            continue
 
         repetido = False
+
         for producto in productos:
             if producto["codigo"] == codigo:
                 repetido = True
                 break
+
         if repetido:
-            print("ya se ha registrado un producto con este codigo.")
+            print("Ya se ha registrado un producto con este codigo.")
         else:
             break
-    nombre = str(input("Escriba el nombre: "))
-    categoria = str(input("Escriba la categoria: "))
-    cantidad = int(input("Escriba la cantidad: "))
-    precio = int(input("Escriba el precio: "))  
+
+    while True:
+        nombre = input("Escriba el nombre: ").strip()
+
+        if nombre != "":
+            break
+
+        print("El nombre no puede estar vacio.")
+
+    while True:
+        categoria = input("Escriba la categoria: ").strip()
+
+        if categoria != "":
+            break
+
+        print("La categoria no puede estar vacia.")
+
+    while True:
+        try:
+            cantidad = int(input("Escriba la cantidad: "))
+
+            if cantidad >= 0:
+                break
+
+            print("La cantidad debe ser mayor o igual a cero.")
+
+        except ValueError:
+            print("La cantidad debe ser un numero entero.")
+
+    while True:
+        try:
+            precio = float(input("Escriba el precio: "))
+
+            if precio > 0:
+                break
+
+            print("El precio debe ser mayor que cero.")
+
+        except ValueError:
+            print("El precio debe ser numerico.")
 
     nuevo_producto = {
         "codigo": codigo,
@@ -53,14 +96,17 @@ def registrar_producto():
         "cantidad": cantidad,
         "precio": precio
     }
+
     productos.append(nuevo_producto)
 
     with open("producto.json", "w", encoding="utf-8") as archivo:
-        json.dump(productos, archivo, ensure_ascii=False, indent=4 )
-    return
+        json.dump(productos, archivo, ensure_ascii=False, indent=4)
+
+    print("Producto registrado correctamente.")
 
 
 def consultar_producto():
+
     print("=============================================")
     print("               CONSULTAR PRODUCTOS           ")
     print("=============================================")
@@ -68,152 +114,205 @@ def consultar_producto():
     if not productos:
         print("No hay productos registrados en este momento.")
         return
+
     for prod in productos:
         print("=============================================")
         print(f"Codigo: {prod['codigo']}")
         print(f"Nombre: {prod['nombre']}")
         print(f"Categoria: {prod['categoria']}")
         print(f"Cantidad: {prod['cantidad']}")
-        print(f"Precio: {prod['precio']}")
+        print(f"Precio: ${prod['precio']}")
         print("=============================================")
-
 
 
 def buscar_producto():
 
-    if not productos:
-        print("=============================================")
-        print("               BUSCAR PRODUCTOS              ")
-        print("=============================================")
-        print("Aun no hay productos registrados. ")
-        return
-    
-    Encontrado = False
-    busqueda = input("ingrese el codigo que desea buscar: ")
-    for bus in productos:
-        
-        if bus["codigo"] == busqueda:
-            print(f"Codigo: {bus['codigo']}")
-            print(f"Nombre: {bus['nombre']}")
-            print(f"Categoria: {bus['categoria']}")
-            print(f"Cantidad: {bus['cantidad']}")
-            print(f"Precio: {bus['precio']}")
-            Encontrado = True
-        if not Encontrado:
-            print("no hay productos con ese codigo")
+    print("=============================================")
+    print("               BUSCAR PRODUCTO               ")
+    print("=============================================")
+
+    busqueda = input("Ingrese el codigo que desea buscar: ").strip()
+
+    encontrado = False
+
+    for producto in productos:
+
+        if producto["codigo"] == busqueda:
+
+            print(f"Codigo: {producto['codigo']}")
+            print(f"Nombre: {producto['nombre']}")
+            print(f"Categoria: {producto['categoria']}")
+            print(f"Cantidad: {producto['cantidad']}")
+            print(f"Precio: ${producto['precio']}")
+
+            encontrado = True
+            break
+
+    if not encontrado:
+        print("Producto no encontrado.")
 
 
 def actualizar_producto():
 
-    Encontrado = False
-    busqueda = input("ingrese el codigo que desea buscar: ")
-    for bus in productos:
-            
-            if bus["codigo"] == busqueda:
-                bus['nombre'] = input("escriba el nuevo nombre: ")
-                bus['categoria'] = input("escriba la nueva categoria: ")
-                bus['cantidad'] = int(input("escriba la nueva cantidad: "))
-                bus['precio'] = int(input("escriba el nuevo precio: "))
-                Encontrado = True
+    busqueda = input("Ingrese el codigo del producto que desea actualizar: ").strip()
 
-                with open("producto.json", "w", encoding="utf-8") as archivo:
-                    json.dump(productos, archivo, ensure_ascii=False, indent=4 )
+    encontrado = False
 
-                print("producto actualizado correctamente")
-                break
-            if not Encontrado:
-                print("no hay productos con ese codigo")
+    for producto in productos:
+
+        if producto["codigo"] == busqueda:
+
+            print("Producto encontrado.")
+
+            while True:
+                nombre = input("Escriba el nuevo nombre: ").strip()
+
+                if nombre != "":
+                    break
+
+                print("El nombre no puede estar vacio.")
+
+            while True:
+                categoria = input("Escriba la nueva categoria: ").strip()
+
+                if categoria != "":
+                    break
+
+                print("La categoria no puede estar vacia.")
+
+            while True:
+                try:
+                    cantidad = int(input("Escriba la nueva cantidad: "))
+
+                    if cantidad >= 0:
+                        break
+
+                    print("La cantidad debe ser mayor o igual a cero.")
+
+                except ValueError:
+                    print("Debe ingresar un numero entero.")
+
+            while True:
+                try:
+                    precio = float(input("Escriba el nuevo precio: "))
+
+                    if precio > 0:
+                        break
+
+                    print("El precio debe ser mayor que cero.")
+
+                except ValueError:
+                    print("El precio debe ser numerico.")
+
+            producto["nombre"] = nombre
+            producto["categoria"] = categoria
+            producto["cantidad"] = cantidad
+            producto["precio"] = precio
+
+            with open("producto.json", "w", encoding="utf-8") as archivo:
+                json.dump(productos, archivo, ensure_ascii=False, indent=4)
+
+            print("Producto actualizado correctamente.")
+
+            encontrado = True
+            break
+
+    if not encontrado:
+        print("Producto no encontrado.")
 
 
 def eliminar_producto():
 
-    Encontrado = False
-    busqueda = input("ingrese el codigo que desea buscar para eliminar: ")
-    for bus in productos:
-                
-        if bus["codigo"] == busqueda:
+    busqueda = input("Ingrese el codigo del producto que desea eliminar: ").strip()
 
-            productos.remove(bus)
-            Encontrado = True
-    
-            with open("producto.json", "w", encoding="utf-8") as archivo:
-                json.dump(productos, archivo, ensure_ascii=False, indent=4 )
-    
-            print("producto eliminado correctamente")
+    encontrado = False
+
+    for producto in productos:
+
+        if producto["codigo"] == busqueda:
+
+            print(f"Producto encontrado: {producto['nombre']}")
+
+            confirmacion = input("¿Desea eliminarlo? si / no: ").strip().lower()
+
+            if confirmacion == "si":
+
+                productos.remove(producto)
+
+                with open("producto.json", "w", encoding="utf-8") as archivo:
+                    json.dump(productos, archivo, ensure_ascii=False, indent=4)
+
+                print("Producto eliminado correctamente.")
+
+            else:
+                print("Eliminacion cancelada.")
+
+            encontrado = True
             break
 
-        if not Encontrado:
-                        print("no hay productos con ese codigo")
+    if not encontrado:
+        print("Producto no encontrado.")
+
 
 def mostrar_valor_total():
+
     if not productos:
         print("No hay productos registrados.")
         return
+
     total = 0
 
     for producto in productos:
-        subtotal = producto['cantidad']*producto['precio']
+        subtotal = producto["cantidad"] * producto["precio"]
         total = total + subtotal
 
     print(f"El valor total del inventario es de: ${total}")
 
+
 def todo():
+
     control = True
+
     menu()
-    input("haz click en cualquier tecla para continuar")
-    while(control):
+
+    input("Presione ENTER para continuar...")
+
+    while control:
+
         menuPp()
-        op = int(input("selecciona una opcion: "))
-        match op:
-            
-            case 1:
-                print("registrar producto ha sido seleccionado..")
-                primero = True
-                while(primero):
-                    
+
+        try:
+            op = int(input("Seleccione una opcion: "))
+
+            match op:
+
+                case 1:
                     registrar_producto()
-                    while True:
-                        
-                        try:
-                            opcio = str(input("desea añadir otro producto? si / no: ")).strip().lower()
-                            
-                            if opcio == "no":
-                                input("has salido de la opcion 1, click enter para volver al menu")
-                                primero = False
-                                break
-                            elif opcio != "si":
-                                print("escribe si o no")
-                            elif opcio == "si":
-                                break
-                            else: 
-                                raise ValueError
-                        except ValueError:
-                            print("debes escribir si o no")
-                        except TypeError:
-                            print("debes escribir si o no")
 
-            case 2:
-                print("consultar producto ha sido seleccionado..")
-                consultar_producto()
+                case 2:
+                    consultar_producto()
 
-            case 3:
-                print("buscar producto ha sido seleccionado..")
-                buscar_producto()
-            case 4:
-                print("actualizar producto ha sido seleccionado..")
-                actualizar_producto()
+                case 3:
+                    buscar_producto()
 
-            case 5:
-                print("eliminar producto ha sido seleccionado..")
-                eliminar_producto()
+                case 4:
+                    actualizar_producto()
 
-            case 6:
-                print("mostrar valor total del inventario ha sido seleccionado..")
-                mostrar_valor_total()
+                case 5:
+                    eliminar_producto()
 
-            case 7:
-                print("has salido del programa... ")
-                input("para regresar a la terminal presiona cualquier boton")
-                control = False
+                case 6:
+                    mostrar_valor_total()
+
+                case 7:
+                    print("Has salido del programa.")
+                    control = False
+
+                case _:
+                    print("Opcion invalida. Seleccione una opcion del 1 al 7.")
+
+        except ValueError:
+            print("Debe ingresar un numero.")
+
 
 todo()

@@ -1,1 +1,0 @@
-En este proyecto se dara a ver las opciones de 
