@@ -1,1 +1,16 @@
-[]
+[
+    {
+        "codigo": "2121ll",
+        "nombre": "pan",
+        "categoria": "harina",
+        "cantidad": 5,
+        "precio": 20000
+    },
+    {
+        "codigo": "444",
+        "nombre": "haider",
+        "categoria": "gay",
+        "cantidad": 1,
+        "precio": 0
+    }
+]

@@ -145,6 +145,17 @@ def eliminar_producto():
         if not Encontrado:
                         print("no hay productos con ese codigo")
 
+def mostrar_valor_total():
+    if not productos:
+        print("No hay productos registrados.")
+        return
+    total = 0
+
+    for producto in productos:
+        subtotal = producto['cantidad']*producto['precio']
+        total = total + subtotal
+
+    print(f"El valor total del inventario es de: ${total}")
 
 def todo():
     control = True
@@ -198,14 +209,11 @@ def todo():
 
             case 6:
                 print("mostrar valor total del inventario ha sido seleccionado..")
+                mostrar_valor_total()
 
             case 7:
                 print("has salido del programa... ")
                 input("para regresar a la terminal presiona cualquier boton")
                 control = False
-
-
-
-
 
 todo()
