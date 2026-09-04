@@ -102,7 +102,7 @@ def registrar_producto():
     with open("producto.json", "w", encoding="utf-8") as archivo:
         json.dump(productos, archivo, ensure_ascii=False, indent=4)
 
-    print("Producto registrado correctamente.")
+    print("Producto registrado correctamente en el inventario.")
 
 
 def consultar_producto():
